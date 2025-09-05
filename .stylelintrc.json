@@ -1,0 +1,52 @@
+{
+  "extends": ["stylelint-config-standard"],
+  "plugins": ["stylelint-scss"],
+  "rules": {
+    "at-rule-no-unknown": [
+      true,
+      {
+        "ignoreAtRules": [
+          "tailwind",
+          "apply",
+          "variants",
+          "responsive",
+          "screen",
+          "layer",
+          "theme",
+          "variant",
+          "custom-variant",
+          "utility",
+          "reference"
+        ]
+      }
+    ],
+    "scss/at-rule-no-unknown": [
+      true,
+      {
+        "ignoreAtRules": [
+          "tailwind",
+          "apply",
+          "variants",
+          "responsive",
+          "screen",
+          "layer",
+          "theme",
+          "variant",
+          "custom-variant",
+          "utility",
+          "reference"
+        ]
+      }
+    ],
+    "import-notation": null,
+    "lightness-notation": null,
+    "hue-degree-notation": null,
+    "rule-empty-line-before": [
+      "always-multi-line",
+      {
+        "except": ["first-nested"],
+        "ignore": ["after-comment"]
+      }
+    ]
+  }
+}

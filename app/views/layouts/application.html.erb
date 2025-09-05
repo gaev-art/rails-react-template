@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>React Starter Kit</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <link rel="icon" href="/icon.png" type="image/png">
+    <link rel="icon" href="/icon.svg" type="image/svg+xml">
+
+    <%= vite_stylesheet_tag "application" %>
+    <%= vite_react_refresh_tag %>
+    <%= vite_client_tag %>
+    <%= vite_typescript_tag "application" %>
+
+    <script>
+      // Предотвращаем моргание при загрузке страницы
+      (function() {
+        const savedTheme = localStorage.getItem('theme');
+        const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const shouldUseDark = savedTheme === 'dark' || (!savedTheme && systemPrefersDark);
+
+        if (shouldUseDark) {
+          document.documentElement.classList.add('dark');
+        }
+      })();
+    </script>
+  </head>
+
+  <body>
+    <%= yield %>
+  </body>
+</html>
