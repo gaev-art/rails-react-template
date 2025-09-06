@@ -5,6 +5,8 @@
     "@biomejs/biome": "2.2.3",
     "@tailwindcss/postcss": "^4.1.13",
     "globals": "^16.0.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.1.6",
     "postcss": "^8.5.6",
     "shadcn": "^3.2.1",
     "vite": "^7.0.5",
@@ -58,6 +60,13 @@
     "lint": "biome check .",
     "lint:fix": "biome check --write .",
     "format": "biome format --write .",
-    "ci": "biome ci ."
+    "ci": "biome ci .",
+    "prepare": "husky"
+  },
+  "lint-staged": {
+    "*.{js,ts,tsx,json}": [
+      "biome check --write",
+      "biome format --write"
+    ]
   }
 }
