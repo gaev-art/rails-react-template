@@ -1,9 +1,9 @@
-"use client"
-import { motion } from "motion/react"
-import { memo, useEffect, useRef, useState } from "react"
-import { twMerge } from "tailwind-merge"
+'use client'
+import { motion } from 'motion/react'
+import { memo, useEffect, useRef, useState } from 'react'
+import { twMerge } from 'tailwind-merge'
 
-import { cn } from "@/lib/utils"
+import { cn } from '@/lib/utils'
 
 export const TextRevealCard = ({
   text,
@@ -59,6 +59,8 @@ export const TextRevealCard = ({
   const rotateDeg = (widthPercentage - 50) * 0.1
   return (
     <div
+      role='button'
+      tabIndex={0}
       onMouseEnter={mouseEnterHandler}
       onMouseLeave={mouseLeaveHandler}
       onMouseMove={mouseMoveHandler}
@@ -67,16 +69,16 @@ export const TextRevealCard = ({
       onTouchMove={touchMoveHandler}
       ref={cardRef}
       className={cn(
-        "relative w-[40rem] overflow-hidden rounded-lg border border-white/[0.08] bg-[#1d1c20] p-8",
+        'relative w-[40rem] overflow-hidden rounded-lg border border-white/[0.08] bg-[#1d1c20] p-8',
         className,
       )}
     >
       {children}
 
-      <div className="relative flex h-40 items-center overflow-hidden">
+      <div className='relative flex h-40 items-center overflow-hidden'>
         <motion.div
           style={{
-            width: "100%",
+            width: '100%',
           }}
           animate={
             isMouseOver
@@ -89,13 +91,13 @@ export const TextRevealCard = ({
                 }
           }
           transition={isMouseOver ? { duration: 0 } : { duration: 0.4 }}
-          className="absolute z-20 bg-[#1d1c20] will-change-transform"
+          className='absolute z-20 bg-[#1d1c20] will-change-transform'
         >
           <p
             style={{
-              textShadow: "4px 4px 15px rgba(0,0,0,0.5)",
+              textShadow: '4px 4px 15px rgba(0,0,0,0.5)',
             }}
-            className="bg-gradient-to-b from-white to-neutral-300 bg-clip-text py-10 text-base font-bold text-transparent sm:text-[3rem]"
+            className='bg-gradient-to-b from-white to-neutral-300 bg-clip-text py-10 text-base font-bold text-transparent sm:text-[3rem]'
           >
             {revealText}
           </p>
@@ -107,11 +109,11 @@ export const TextRevealCard = ({
             opacity: widthPercentage > 0 ? 1 : 0,
           }}
           transition={isMouseOver ? { duration: 0 } : { duration: 0.4 }}
-          className="absolute z-50 h-40 w-[8px] bg-gradient-to-b from-transparent via-neutral-800 to-transparent will-change-transform"
+          className='absolute z-50 h-40 w-[8px] bg-gradient-to-b from-transparent via-neutral-800 to-transparent will-change-transform'
         ></motion.div>
 
-        <div className="overflow-hidden [mask-image:linear-gradient(to_bottom,transparent,white,transparent)]">
-          <p className="bg-[#323238] bg-clip-text py-10 text-base font-bold text-transparent sm:text-[3rem]">
+        <div className='overflow-hidden [mask-image:linear-gradient(to_bottom,transparent,white,transparent)]'>
+          <p className='bg-[#323238] bg-clip-text py-10 text-base font-bold text-transparent sm:text-[3rem]'>
             {text}
           </p>
           <MemoizedStars />
@@ -129,7 +131,7 @@ export const TextRevealCardTitle = ({
   className?: string
 }) => {
   return (
-    <h2 className={twMerge("mb-2 text-lg text-white", className)}>
+    <h2 className={twMerge('mb-2 text-lg text-white', className)}>
       {children}
     </h2>
   )
@@ -143,7 +145,7 @@ export const TextRevealCardDescription = ({
   className?: string
 }) => {
   return (
-    <p className={twMerge("text-sm text-[#a9a9a9]", className)}>{children}</p>
+    <p className={twMerge('text-sm text-[#a9a9a9]', className)}>{children}</p>
   )
 }
 
@@ -152,7 +154,7 @@ const Stars = () => {
   const randomOpacity = () => Math.random()
   const random = () => Math.random()
   return (
-    <div className="absolute inset-0">
+    <div className='absolute inset-0'>
       {Array.from({ length: 80 }, (_, i) => (
         <motion.span
           key={`star-${i}`}
@@ -165,19 +167,19 @@ const Stars = () => {
           transition={{
             duration: random() * 10 + 20,
             repeat: Infinity,
-            ease: "linear",
+            ease: 'linear',
           }}
           style={{
-            position: "absolute",
+            position: 'absolute',
             top: `${random() * 100}%`,
             left: `${random() * 100}%`,
             width: `2px`,
             height: `2px`,
-            backgroundColor: "white",
-            borderRadius: "50%",
+            backgroundColor: 'white',
+            borderRadius: '50%',
             zIndex: 1,
           }}
-          className="inline-block"
+          className='inline-block'
         ></motion.span>
       ))}
     </div>

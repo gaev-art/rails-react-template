@@ -1,9 +1,16 @@
-"use client"
+'use client'
 
-import type React from "react"
-import { createContext, useContext, useEffect, useRef, useState } from "react"
+import type React from 'react'
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from 'react'
 
-import { cn } from "@/lib/utils"
+import { cn } from '@/lib/utils'
 
 const MouseEnterContext = createContext<
   [boolean, React.Dispatch<React.SetStateAction<boolean>>] | undefined
@@ -18,10 +25,10 @@ export const CardContainer = ({
   className?: string
   containerClassName?: string
 }) => {
-  const containerRef = useRef<HTMLDivElement>(null)
+  const containerRef = useRef<HTMLButtonElement>(null)
   const [isMouseEntered, setIsMouseEntered] = useState(false)
 
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+  const handleMouseMove = (e: React.MouseEvent<HTMLButtonElement>) => {
     if (!containerRef.current) return
     const { left, top, width, height } =
       containerRef.current.getBoundingClientRect()
@@ -44,28 +51,29 @@ export const CardContainer = ({
     <MouseEnterContext.Provider value={[isMouseEntered, setIsMouseEntered]}>
       <div
         className={cn(
-          "flex items-center justify-center py-20",
+          'flex items-center justify-center py-20',
           containerClassName,
         )}
         style={{
-          perspective: "1000px",
+          perspective: '1000px',
         }}
       >
-        <div
+        <button
           ref={containerRef}
+          type='button'
           onMouseEnter={handleMouseEnter}
           onMouseMove={handleMouseMove}
           onMouseLeave={handleMouseLeave}
           className={cn(
-            "relative flex items-center justify-center transition-all duration-200 ease-linear",
+            'relative flex items-center justify-center transition-all duration-200 ease-linear',
             className,
           )}
           style={{
-            transformStyle: "preserve-3d",
+            transformStyle: 'preserve-3d',
           }}
         >
           {children}
-        </div>
+        </button>
       </div>
     </MouseEnterContext.Provider>
   )
@@ -81,7 +89,7 @@ export const CardBody = ({
   return (
     <div
       className={cn(
-        "h-96 w-96 [transform-style:preserve-3d] [&>*]:[transform-style:preserve-3d]",
+        'h-96 w-96 [transform-style:preserve-3d] [&>*]:[transform-style:preserve-3d]',
         className,
       )}
     >
@@ -91,7 +99,7 @@ export const CardBody = ({
 }
 
 export const CardItem = ({
-  as: Tag = "div",
+  as: Tag = 'div',
   children,
   className,
   translateX = 0,
@@ -116,23 +124,31 @@ export const CardItem = ({
   const ref = useRef<HTMLDivElement>(null)
   const [isMouseEntered] = useMouseEnter()
 
-  useEffect(() => {
-    handleAnimations()
-  }, [isMouseEntered])
-
-  const handleAnimations = () => {
+  const handleAnimations = useCallback(() => {
     if (!ref.current) return
     if (isMouseEntered) {
       ref.current.style.transform = `translateX(${translateX}px) translateY(${translateY}px) translateZ(${translateZ}px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) rotateZ(${rotateZ}deg)`
     } else {
       ref.current.style.transform = `translateX(0px) translateY(0px) translateZ(0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg)`
     }
-  }
+  }, [
+    isMouseEntered,
+    translateX,
+    translateY,
+    translateZ,
+    rotateX,
+    rotateY,
+    rotateZ,
+  ])
+
+  useEffect(() => {
+    handleAnimations()
+  }, [handleAnimations])
 
   return (
     <Tag
       ref={ref}
-      className={cn("w-fit transition duration-200 ease-linear", className)}
+      className={cn('w-fit transition duration-200 ease-linear', className)}
       {...rest}
     >
       {children}
@@ -144,7 +160,7 @@ export const CardItem = ({
 export const useMouseEnter = () => {
   const context = useContext(MouseEnterContext)
   if (context === undefined) {
-    throw new Error("useMouseEnter must be used within a MouseEnterProvider")
+    throw new Error('useMouseEnter must be used within a MouseEnterProvider')
   }
   return context
 }

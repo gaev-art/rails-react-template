@@ -2,21 +2,11 @@
   "private": true,
   "type": "module",
   "devDependencies": {
-    "@eslint/js": "^9.19.0",
+    "@biomejs/biome": "2.2.3",
     "@tailwindcss/postcss": "^4.1.13",
-    "eslint": "^9.19.0",
-    "eslint-config-prettier": "^10.1.2",
-    "eslint-plugin-import": "^2.31.0",
-    "eslint-plugin-react": "^7.37.4",
     "globals": "^16.0.0",
     "postcss": "^8.5.6",
-    "prettier": "^3.4.2",
-    "prettier-plugin-tailwindcss": "^0.6.11",
     "shadcn": "^3.2.1",
-    "stylelint": "^16.23.1",
-    "stylelint-config-standard": "^39.0.0",
-    "stylelint-scss": "^6.12.1",
-    "typescript-eslint": "^8.29.1",
     "vite": "^7.0.5",
     "vite-plugin-ruby": "^5.1.1"
   },
@@ -65,11 +55,9 @@
   },
   "scripts": {
     "check": "tsc -p tsconfig.app.json && tsc -p tsconfig.node.json",
-    "lint": "eslint app/frontend --report-unused-disable-directives --max-warnings 0",
-    "lint:fix": "npm run lint -- --fix",
-    "lint:css": "stylelint 'app/frontend/**/*.css'",
-    "lint:css:fix": "stylelint 'app/frontend/**/*.css' --fix",
-    "format": "prettier --check 'app/frontend/**/*.{ts,tsx,js}'",
-    "format:fix": "npm run format -- --write"
+    "lint": "biome check .",
+    "lint:fix": "biome check --write .",
+    "format": "biome format --write .",
+    "ci": "biome ci ."
   }
 }

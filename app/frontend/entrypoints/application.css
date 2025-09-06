@@ -161,7 +161,8 @@
   --shadow-2xl: 0px 4px 8px -1px hsl(0 0% 0% / 25%);
 }
 
-@theme inline {
+/* Theme variables */
+:root {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);

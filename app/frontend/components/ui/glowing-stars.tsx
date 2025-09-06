@@ -1,10 +1,10 @@
-"use client"
+'use client'
 
-import { AnimatePresence, motion } from "motion/react"
-import type React from "react"
-import { useEffect, useRef, useState } from "react"
+import { AnimatePresence, motion } from 'motion/react'
+import type React from 'react'
+import { useEffect, useRef, useState } from 'react'
 
-import { cn } from "@/lib/utils"
+import { cn } from '@/lib/utils'
 
 export const GlowingStarsBackgroundCard = ({
   className,
@@ -16,7 +16,8 @@ export const GlowingStarsBackgroundCard = ({
   const [mouseEnter, setMouseEnter] = useState(false)
 
   return (
-    <div
+    <button
+      type='button'
       onMouseEnter={() => {
         setMouseEnter(true)
       }}
@@ -24,15 +25,15 @@ export const GlowingStarsBackgroundCard = ({
         setMouseEnter(false)
       }}
       className={cn(
-        "h-full max-h-[20rem] w-full max-w-md rounded-xl border border-[#eaeaea] bg-[linear-gradient(110deg,#333_0.6%,#222)] p-4 dark:border-neutral-600",
+        'h-full max-h-[20rem] w-full max-w-md rounded-xl border border-[#eaeaea] bg-[linear-gradient(110deg,#333_0.6%,#222)] p-4 dark:border-neutral-600',
         className,
       )}
     >
-      <div className="flex items-center justify-center">
+      <div className='flex items-center justify-center'>
         <Illustration mouseEnter={mouseEnter} />
       </div>
-      <div className="px-2 pb-6">{children}</div>
-    </div>
+      <div className='px-2 pb-6'>{children}</div>
+    </button>
   )
 }
 
@@ -44,7 +45,7 @@ export const GlowingStarsDescription = ({
   children?: React.ReactNode
 }) => {
   return (
-    <p className={cn("max-w-[16rem] text-base text-white", className)}>
+    <p className={cn('max-w-[16rem] text-base text-white', className)}>
       {children}
     </p>
   )
@@ -58,7 +59,7 @@ export const GlowingStarsTitle = ({
   children?: React.ReactNode
 }) => {
   return (
-    <h2 className={cn("text-2xl font-bold text-[#eaeaea]", className)}>
+    <h2 className={cn('text-2xl font-bold text-[#eaeaea]', className)}>
       {children}
     </h2>
   )
@@ -85,9 +86,9 @@ export const Illustration = ({ mouseEnter }: { mouseEnter: boolean }) => {
 
   return (
     <div
-      className="h-48 w-full p-1"
+      className='h-48 w-full p-1'
       style={{
-        display: "grid",
+        display: 'grid',
         gridTemplateColumns: `repeat(${columns}, 1fr)`,
         gap: `1px`,
       }}
@@ -99,14 +100,14 @@ export const Illustration = ({ mouseEnter }: { mouseEnter: boolean }) => {
         return (
           <div
             key={`matrix-col-${starIdx}}`}
-            className="relative flex items-center justify-center"
+            className='relative flex items-center justify-center'
           >
             <Star
               isGlowing={mouseEnter ? true : isGlowing}
               delay={mouseEnter ? staticDelay : delay}
             />
             {mouseEnter && <Glow delay={staticDelay} />}
-            <AnimatePresence mode="wait">
+            <AnimatePresence mode='wait'>
               {isGlowing && <Glow delay={delay} />}
             </AnimatePresence>
           </div>
@@ -125,14 +126,14 @@ const Star = ({ isGlowing, delay }: { isGlowing: boolean; delay: number }) => {
       }}
       animate={{
         scale: isGlowing ? [1, 1.2, 2.5, 2.2, 1.5] : 1,
-        background: isGlowing ? "#fff" : "#666",
+        background: isGlowing ? '#fff' : '#666',
       }}
       transition={{
         duration: 2,
-        ease: "easeInOut",
+        ease: 'easeInOut',
         delay: delay,
       }}
-      className={cn("relative z-20 h-[1px] w-[1px] rounded-full bg-[#666]")}
+      className={cn('relative z-20 h-[1px] w-[1px] rounded-full bg-[#666]')}
     ></motion.div>
   )
 }
@@ -148,13 +149,13 @@ const Glow = ({ delay }: { delay: number }) => {
       }}
       transition={{
         duration: 2,
-        ease: "easeInOut",
+        ease: 'easeInOut',
         delay: delay,
       }}
       exit={{
         opacity: 0,
       }}
-      className="absolute left-1/2 z-10 h-[4px] w-[4px] -translate-x-1/2 rounded-full bg-blue-500 shadow-2xl shadow-blue-400 blur-[1px]"
+      className='absolute left-1/2 z-10 h-[4px] w-[4px] -translate-x-1/2 rounded-full bg-blue-500 shadow-2xl shadow-blue-400 blur-[1px]'
     />
   )
 }

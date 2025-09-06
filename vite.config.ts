@@ -1,7 +1,7 @@
-import tailwindcss from "@tailwindcss/vite"
-import react from "@vitejs/plugin-react"
-import { defineConfig } from "vite"
-import RubyPlugin from "vite-plugin-ruby"
+import tailwindcss from '@tailwindcss/vite'
+import react from '@vitejs/plugin-react'
+import { defineConfig } from 'vite'
+import RubyPlugin from 'vite-plugin-ruby'
 
 export default defineConfig({
   ssr: {
@@ -11,7 +11,7 @@ export default defineConfig({
   server: {
     hmr: {
       port: 3036,
-      host: "localhost",
+      host: 'localhost',
     },
   },
   plugins: [react(), tailwindcss(), RubyPlugin()],

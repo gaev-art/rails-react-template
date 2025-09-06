@@ -1,7 +1,7 @@
-"use client"
-import type { MotionValue } from "motion/react"
-import { motion, useScroll, useTransform } from "motion/react"
-import React, { useRef } from "react"
+'use client'
+import type { MotionValue } from 'motion/react'
+import { motion, useScroll, useTransform } from 'motion/react'
+import React, { useRef } from 'react'
 
 export const ContainerScroll = ({
   titleComponent,
@@ -21,9 +21,9 @@ export const ContainerScroll = ({
       setIsMobile(window.innerWidth <= 768)
     }
     checkMobile()
-    window.addEventListener("resize", checkMobile)
+    window.addEventListener('resize', checkMobile)
     return () => {
-      window.removeEventListener("resize", checkMobile)
+      window.removeEventListener('resize', checkMobile)
     }
   }, [])
 
@@ -37,13 +37,13 @@ export const ContainerScroll = ({
 
   return (
     <div
-      className="relative flex h-[60rem] items-center justify-center p-2 md:h-[80rem] md:p-20"
+      className='relative flex h-[60rem] items-center justify-center p-2 md:h-[80rem] md:p-20'
       ref={containerRef}
     >
       <div
-        className="relative w-full py-10 md:py-40"
+        className='relative w-full py-10 md:py-40'
         style={{
-          perspective: "1000px",
+          perspective: '1000px',
         }}
       >
         <Header translate={translate} titleComponent={titleComponent} />
@@ -66,7 +66,7 @@ export const Header = ({ translate, titleComponent }: HeaderProps) => {
       style={{
         translateY: translate,
       }}
-      className="div mx-auto max-w-5xl text-center"
+      className='div mx-auto max-w-5xl text-center'
     >
       {titleComponent}
     </motion.div>
@@ -89,11 +89,11 @@ export const Card = ({
         rotateX: rotate,
         scale,
         boxShadow:
-          "0 0 #0000004d, 0 9px 20px #0000004a, 0 37px 37px #00000042, 0 84px 50px #00000026, 0 149px 60px #0000000a, 0 233px 65px #00000003",
+          '0 0 #0000004d, 0 9px 20px #0000004a, 0 37px 37px #00000042, 0 84px 50px #00000026, 0 149px 60px #0000000a, 0 233px 65px #00000003',
       }}
-      className="mx-auto -mt-12 h-[30rem] w-full max-w-5xl rounded-[30px] border-4 border-[#6C6C6C] bg-[#222222] p-2 shadow-2xl md:h-[40rem] md:p-6"
+      className='mx-auto -mt-12 h-[30rem] w-full max-w-5xl rounded-[30px] border-4 border-[#6C6C6C] bg-[#222222] p-2 shadow-2xl md:h-[40rem] md:p-6'
     >
-      <div className="h-full w-full overflow-hidden rounded-2xl bg-gray-100 md:rounded-2xl md:p-4 dark:bg-zinc-900">
+      <div className='h-full w-full overflow-hidden rounded-2xl bg-gray-100 md:rounded-2xl md:p-4 dark:bg-zinc-900'>
         {children}
       </div>
     </motion.div>
