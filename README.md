@@ -32,9 +32,11 @@ This starter kit provides a production-ready foundation for building modern web 
 ### Development Experience
 - 🔍 **Biome** - Fast linting and formatting
 - 🪝 **Husky** - Git hooks for code quality
+- 🧪 **Vitest** - Modern testing framework with React Testing Library
 - 📦 **Hot Module Replacement** - Instant feedback during development
 - ✅ **Type Checking** - Comprehensive TypeScript validation
 - 🎯 **Path Aliases** - Clean import statements with `@/` prefix
+- 📊 **Test Coverage** - Comprehensive coverage reporting
 
 ## 📋 Prerequisites
 
@@ -84,6 +86,12 @@ npm run lint:fix
 
 # Formatting
 npm run format
+
+# Testing
+npm run test          # Run tests in watch mode
+npm run test:run      # Run tests once
+npm run test:coverage # Run tests with coverage report
+npm run test:ui       # Run tests with Vitest UI
 
 # Full check (lint + type check)
 npm run check:all
@@ -274,15 +282,53 @@ docker run -d -p 80:80 \
 
 ## 🧪 Testing
 
+The project includes a comprehensive testing setup with **Vitest** and **React Testing Library**:
+
 ```bash
-# Type checking
-npm run check
+# Run tests in watch mode (development)
+npm run test
 
-# Linting
-npm run lint
+# Run all tests once
+npm run test:run
 
-# Full validation
-npm run check:all
+# Generate coverage report
+npm run test:coverage
+
+# Run tests with UI interface
+npm run test:ui
+```
+
+### Testing Features
+- **Component Testing** - All UI components have comprehensive unit tests
+- **Hook Testing** - Custom hooks like `useTheme` are thoroughly tested
+- **Test Utilities** - Helper functions for common testing patterns
+- **Coverage Reporting** - Detailed coverage reports with thresholds
+- **Mock Support** - Built-in mocking for localStorage, routers, and more
+
+### Writing Tests
+
+```typescript
+// Component test example
+import { render, screen, fireEvent } from '../../test-utils'
+import { Button } from '@/components/ui/button'
+
+test('button handles click events', () => {
+  const handleClick = vi.fn()
+  render(<Button onClick={handleClick}>Click me</Button>)
+
+  fireEvent.click(screen.getByRole('button'))
+  expect(handleClick).toHaveBeenCalledTimes(1)
+})
+```
+
+## 🎯 Path Aliases
+
+The project uses TypeScript path aliases for clean imports:
+
+```typescript
+import { Button } from '@/components/ui/button'
+import { useTheme } from '@/hooks/useTheme'
+import { cn } from '@/lib/utils'
 ```
 
 ## 🤝 Contributing

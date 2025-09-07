@@ -1,16 +1,12 @@
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom'
 
-import AnimatedPage from '@/pages/AnimatedPage'
-import ComponentsPage from '@/pages/ComponentsPage'
-import SimplePage from '@/pages/SimplePage'
+import MainPage from '@/pages/MainPage'
 
 export default function App() {
   return (
     <Router>
       <Routes>
-        <Route path='/' element={<SimplePage />} />
-        <Route path='/components' element={<ComponentsPage />} />
-        <Route path='/animated' element={<AnimatedPage />} />
+        <Route path='*' element={<MainPage />} />
       </Routes>
     </Router>
   )

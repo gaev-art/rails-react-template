@@ -6,13 +6,19 @@
     "@commitlint/cli": "^19.8.1",
     "@commitlint/config-conventional": "^19.8.1",
     "@tailwindcss/postcss": "^4.1.13",
+    "@testing-library/jest-dom": "^6.8.0",
+    "@testing-library/react": "^16.3.0",
+    "@testing-library/user-event": "^14.6.1",
+    "@vitest/coverage-v8": "^3.2.4",
     "globals": "^16.0.0",
     "husky": "^9.1.7",
+    "jsdom": "^26.1.0",
     "lint-staged": "^16.1.6",
     "postcss": "^8.5.6",
     "shadcn": "^3.2.1",
     "vite": "^7.0.5",
-    "vite-plugin-ruby": "^5.1.1"
+    "vite-plugin-ruby": "^5.1.1",
+    "vitest": "^3.2.4"
   },
   "dependencies": {
     "@headlessui/react": "^2.2.0",
@@ -58,17 +64,19 @@
     "typescript": "^5.7.3"
   },
   "scripts": {
-    "check": "tsc -p tsconfig.app.json && tsc -p tsconfig.node.json",
     "check:all": "npm run lint && npm run check",
+    "check": "tsc -p tsconfig.app.json && tsc -p tsconfig.node.json",
     "lint": "biome check .",
-    "lint:fix": "biome check --write .",
-    "format": "biome format --write .",
+    "fix": "biome check --write --unsafe .",
     "ci": "biome ci .",
+    "test": "vitest",
+    "test:run": "vitest run",
+    "test:coverage": "vitest run --coverage",
     "prepare": "husky"
   },
   "lint-staged": {
     "*.{js,ts,tsx,json}": [
-      "biome check"
+      "biome check --write"
     ]
   }
 }
