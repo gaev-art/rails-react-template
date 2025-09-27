@@ -3,18 +3,18 @@
 Rails.application.routes.draw do
   # Mount Swagger UI only in development and test environments
   if Rails.env.development? || Rails.env.test?
-    mount Rswag::Ui::Engine => '/api-docs'
-    mount Rswag::Api::Engine => '/api-docs'
+    mount Rswag::Ui::Engine => "/api-docs"
+    mount Rswag::Api::Engine => "/api-docs"
   end
   # API routes
   namespace :api do
     namespace :v1 do
       # Authentication routes
-      post 'auth/login', to: 'auth#login'
-      post 'auth/register', to: 'auth#register'
-      post 'auth/refresh', to: 'auth#refresh'
-      delete 'auth/logout', to: 'auth#logout'
-      get 'auth/me', to: 'auth#me'
+      post "auth/login", to: "auth#login"
+      post "auth/register", to: "auth#register"
+      post "auth/refresh", to: "auth#refresh"
+      delete "auth/logout", to: "auth#logout"
+      get "auth/me", to: "auth#me"
 
       # User management routes
       resources :users, only: [:index, :show, :update, :destroy]

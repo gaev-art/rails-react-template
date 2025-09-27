@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class JwtService
-  SECRET_KEY = Rails.application.secret_key_base || 'your-secret-key'
-  ALGORITHM = 'HS256'
+  SECRET_KEY = Rails.application.secret_key_base || "your-secret-key"
+  ALGORITHM = "HS256"
 
   # Access token expires in 15 minutes
   ACCESS_TOKEN_EXPIRY = 15.minutes
@@ -16,7 +16,7 @@ class JwtService
     end
 
     def decode(token)
-      decoded = JWT.decode(token, SECRET_KEY, true, { algorithm: ALGORITHM })
+      decoded = JWT.decode(token, SECRET_KEY, true, {algorithm: ALGORITHM})
       decoded[0]
     rescue JWT::DecodeError, JWT::ExpiredSignature => e
       raise JWT::DecodeError, "Invalid token: #{e.message}"
@@ -27,18 +27,18 @@ class JwtService
         user_id: user.id,
         email: user.email,
         role: user.role&.name,
-        token_type: 'access'
+        token_type: "access"
       }
 
       refresh_payload = {
         user_id: user.id,
-        token_type: 'refresh'
+        token_type: "refresh"
       }
 
       {
         access_token: encode(access_payload, ACCESS_TOKEN_EXPIRY),
         refresh_token: encode(refresh_payload, REFRESH_TOKEN_EXPIRY),
-        token_type: 'Bearer',
+        token_type: "Bearer",
         expires_in: ACCESS_TOKEN_EXPIRY.to_i
       }
     end
@@ -46,22 +46,22 @@ class JwtService
     def refresh_access_token(refresh_token)
       payload = decode(refresh_token)
 
-      if payload['token_type'] != 'refresh'
-        raise JWT::DecodeError, 'Invalid token type'
+      if payload["token_type"] != "refresh"
+        raise JWT::DecodeError, "Invalid token type"
       end
 
-      user = User.find(payload['user_id'])
+      user = User.find(payload["user_id"])
 
       access_payload = {
         user_id: user.id,
         email: user.email,
         role: user.role&.name,
-        token_type: 'access'
+        token_type: "access"
       }
 
       {
         access_token: encode(access_payload, ACCESS_TOKEN_EXPIRY),
-        token_type: 'Bearer',
+        token_type: "Bearer",
         expires_in: ACCESS_TOKEN_EXPIRY.to_i
       }
     end
@@ -69,13 +69,13 @@ class JwtService
     def extract_user_from_token(token)
       payload = decode(token)
 
-      if payload['token_type'] != 'access'
-        raise JWT::DecodeError, 'Invalid token type'
+      if payload["token_type"] != "access"
+        raise JWT::DecodeError, "Invalid token type"
       end
 
-      User.find(payload['user_id'])
+      User.find(payload["user_id"])
     rescue ActiveRecord::RecordNotFound
-      raise JWT::DecodeError, 'User not found'
+      raise JWT::DecodeError, "User not found"
     end
   end
 end

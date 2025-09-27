@@ -17,21 +17,21 @@ module Api
         token = extract_token_from_header
         @current_user = JwtService.extract_user_from_token(token)
       rescue JWT::DecodeError
-        render json: { error: 'Invalid or expired token' }, status: :unauthorized
+        render json: {error: "Invalid or expired token"}, status: :unauthorized
       end
 
       def extract_token_from_header
-        auth_header = request.headers['Authorization']
-        return nil unless auth_header&.start_with?('Bearer ')
+        auth_header = request.headers["Authorization"]
+        return nil unless auth_header&.start_with?("Bearer ")
 
-        auth_header.split(' ').last
+        auth_header.split(" ").last
       end
 
       def current_user
         @current_user
       end
 
-      def render_success(data = {}, message = 'Success', status = :ok)
+      def render_success(data = {}, message = "Success", status = :ok)
         render json: {
           success: true,
           message: message,
@@ -39,7 +39,7 @@ module Api
         }, status: status
       end
 
-      def render_error(message = 'Error', status = :bad_request, errors = {})
+      def render_error(message = "Error", status = :bad_request, errors = {})
         render json: {
           success: false,
           message: message,
@@ -52,11 +52,11 @@ module Api
       end
 
       def handle_not_found(exception)
-        render_error('Resource not found', :not_found)
+        render_error("Resource not found", :not_found)
       end
 
       def handle_validation_error(exception)
-        render_error('Validation failed', :unprocessable_entity, exception.record.errors.messages)
+        render_error("Validation failed", :unprocessable_entity, exception.record.errors.messages)
       end
     end
   end

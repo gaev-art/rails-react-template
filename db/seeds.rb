@@ -7,16 +7,16 @@
 # Create default roles
 roles_data = [
   {
-    name: 'admin',
-    description: 'Full system access with all permissions'
+    name: "admin",
+    description: "Full system access with all permissions"
   },
   {
-    name: 'moderator',
-    description: 'Limited administrative access for content moderation'
+    name: "moderator",
+    description: "Limited administrative access for content moderation"
   },
   {
-    name: 'user',
-    description: 'Standard user with basic permissions'
+    name: "user",
+    description: "Standard user with basic permissions"
   }
 ]
 
@@ -27,13 +27,13 @@ roles_data.each do |role_attrs|
 end
 
 # Create a default admin user if none exists
-admin_role = Role.find_by!(name: 'admin')
+admin_role = Role.find_by!(name: "admin")
 if User.where(role: admin_role).empty?
   User.create!(
-    name: 'Admin User',
-    email: 'admin@example.com',
-    password: 'password123',
-    password_confirmation: 'password123',
+    name: "Admin User",
+    email: "admin@example.com",
+    password: "password123",
+    password_confirmation: "password123",
     verified: true,
     role: admin_role
   )

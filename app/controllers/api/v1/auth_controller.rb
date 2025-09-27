@@ -16,18 +16,18 @@ module Api
             render_success({
               user: user_serializer(user),
               tokens: tokens
-            }, 'Login successful')
+            }, "Login successful")
           else
-            render_error('Account not verified', :forbidden)
+            render_error("Account not verified", :forbidden)
           end
         else
-          render_error('Invalid email or password', :unauthorized)
+          render_error("Invalid email or password", :unauthorized)
         end
       end
 
       def register
         user = User.new(register_params)
-        user.role = Role.find_by(name: 'user') # Assign default role
+        user.role = Role.find_by(name: "user") # Assign default role
 
         if user.save
           tokens = JwtService.generate_token_pair(user)
@@ -36,9 +36,9 @@ module Api
           render_success({
             user: user_serializer(user),
             tokens: tokens
-          }, 'Registration successful', :created)
+          }, "Registration successful", :created)
         else
-          render_error('Registration failed', :unprocessable_entity, user.errors.messages)
+          render_error("Registration failed", :unprocessable_entity, user.errors.messages)
         end
       end
 
@@ -46,12 +46,12 @@ module Api
         refresh_token = params[:refresh_token]
 
         if refresh_token.blank?
-          return render_error('Refresh token required', :bad_request)
+          return render_error("Refresh token required", :bad_request)
         end
 
         begin
           tokens = JwtService.refresh_access_token(refresh_token)
-          render_success(tokens, 'Token refreshed successfully')
+          render_success(tokens, "Token refreshed successfully")
         rescue JWT::DecodeError => e
           render_error(e.message, :unauthorized)
         end
@@ -65,13 +65,13 @@ module Api
           ).destroy_all
         end
 
-        render_success({}, 'Logout successful')
+        render_success({}, "Logout successful")
       end
 
       def me
         render_success({
           user: user_serializer(current_user)
-        }, 'User profile retrieved')
+        }, "User profile retrieved")
       end
 
       private
