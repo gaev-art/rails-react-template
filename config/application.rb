@@ -40,5 +40,8 @@ module ReactStarterKit
 
     # Don't generate system test files.
     config.generators.system_tests = nil
+
+    # Configure Rack::Attack middleware
+    config.middleware.use Rack::Attack
   end
 end

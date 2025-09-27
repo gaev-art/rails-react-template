@@ -13,6 +13,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Deployment guides for multiple platforms
 - Component library documentation
 - Development workflow guidelines
+- **API Framework & Documentation** (2025-09-27)
+  - Comprehensive API documentation with interactive HTML interface
+  - Rate limiting with Rack::Attack (100 req/min general, 10 req/min auth)
+  - CORS configuration for cross-origin requests
+  - Enhanced error handling with standardized response format
+  - Swagger/OpenAPI integration with RSpec tests
+  - Security features including JWT validation and session tracking
 - **Testing Infrastructure**: Complete Vitest setup with React Testing Library
   - Vitest configuration with coverage reporting
   - Test utilities for theme and router testing

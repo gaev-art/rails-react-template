@@ -1,6 +1,11 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  # Mount Swagger UI only in development and test environments
+  if Rails.env.development? || Rails.env.test?
+    mount Rswag::Ui::Engine => '/api-docs'
+    mount Rswag::Api::Engine => '/api-docs'
+  end
   # API routes
   namespace :api do
     namespace :v1 do

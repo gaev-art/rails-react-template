@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React Starter Kit API Documentation</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f8f9fa;
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        .endpoint {
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-left: 4px solid #667eea;
+        }
+        .method {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 0.9em;
+            margin-right: 10px;
+        }
+        .post { background-color: #28a745; color: white; }
+        .get { background-color: #007bff; color: white; }
+        .delete { background-color: #dc3545; color: white; }
+        .path {
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 1.1em;
+            font-weight: bold;
+            color: #495057;
+        }
+        .description {
+            margin: 10px 0;
+            color: #6c757d;
+        }
+        .params {
+            margin: 15px 0;
+        }
+        .param {
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 4px;
+            margin: 5px 0;
+            border-left: 3px solid #dee2e6;
+        }
+        .param-name {
+            font-weight: bold;
+            color: #495057;
+        }
+        .param-type {
+            color: #6c757d;
+            font-size: 0.9em;
+        }
+        .response {
+            background: #e8f5e8;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 10px 0;
+            border-left: 3px solid #28a745;
+        }
+        .code {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 4px;
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 0.9em;
+            overflow-x: auto;
+            border: 1px solid #dee2e6;
+        }
+        .section {
+            margin: 2rem 0;
+        }
+        .section h2 {
+            color: #495057;
+            border-bottom: 2px solid #dee2e6;
+            padding-bottom: 10px;
+        }
+        .auth-note {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 4px;
+            padding: 15px;
+            margin: 20px 0;
+            color: #856404;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🚀 React Starter Kit API</h1>
+        <p>RESTful API Documentation v1.0</p>
+        <p>Built with Rails 8.0.2 + React + TypeScript</p>
+    </div>
+
+    <div class="auth-note">
+        <strong>🔐 Authentication Required:</strong> Most endpoints require a valid JWT token in the Authorization header: <code>Authorization: Bearer &lt;your-token&gt;</code>
+    </div>
+
+    <div class="section">
+        <h2>🔑 Authentication Endpoints</h2>
+
+        <div class="endpoint">
+            <span class="method post">POST</span>
+            <span class="path">/api/v1/auth/login</span>
+            <div class="description">Authenticate user with email and password</div>
+
+            <div class="params">
+                <strong>Request Body:</strong>
+                <div class="param">
+                    <div class="param-name">auth.email</div>
+                    <div class="param-type">string (email) - User's email address</div>
+                </div>
+                <div class="param">
+                    <div class="param-name">auth.password</div>
+                    <div class="param-type">string - User's password</div>
+                </div>
+            </div>
+
+            <div class="response">
+                <strong>Success Response (200):</strong>
+                <div class="code">{
+  "success": true,
+  "message": "Login successful",
+  "data": {
+    "user": {
+      "id": 1,
+      "name": "John Doe",
+      "email": "john@example.com",
+      "role": "user",
+      "verified": true
+    },
+    "tokens": {
+      "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+      "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+      "expires_in": 3600
+    }
+  }
+}</div>
+            </div>
+        </div>
+
+        <div class="endpoint">
+            <span class="method post">POST</span>
+            <span class="path">/api/v1/auth/register</span>
+            <div class="description">Register a new user account</div>
+
+            <div class="params">
+                <strong>Request Body:</strong>
+                <div class="param">
+                    <div class="param-name">name</div>
+                    <div class="param-type">string - User's full name</div>
+                </div>
+                <div class="param">
+                    <div class="param-name">email</div>
+                    <div class="param-type">string (email) - User's email address</div>
+                </div>
+                <div class="param">
+                    <div class="param-name">password</div>
+                    <div class="param-type">string - User's password (min 6 characters)</div>
+                </div>
+                <div class="param">
+                    <div class="param-name">password_confirmation</div>
+                    <div class="param-type">string - Password confirmation</div>
+                </div>
+            </div>
+
+            <div class="response">
+                <strong>Success Response (201):</strong>
+                <div class="code">{
+  "success": true,
+  "message": "User registered successfully",
+  "data": {
+    "user": {
+      "id": 2,
+      "name": "Jane Doe",
+      "email": "jane@example.com",
+      "role": "user",
+      "verified": false
+    },
+    "tokens": {
+      "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+      "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+      "expires_in": 3600
+    }
+  }
+}</div>
+            </div>
+        </div>
+
+        <div class="endpoint">
+            <span class="method post">POST</span>
+            <span class="path">/api/v1/auth/refresh</span>
+            <div class="description">Refresh access token using refresh token</div>
+
+            <div class="params">
+                <strong>Request Body:</strong>
+                <div class="param">
+                    <div class="param-name">refresh_token</div>
+                    <div class="param-type">string - Valid refresh token</div>
+                </div>
+            </div>
+
+            <div class="response">
+                <strong>Success Response (200):</strong>
+                <div class="code">{
+  "success": true,
+  "message": "Token refreshed successfully",
+  "data": {
+    "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+    "expires_in": 3600
+  }
+}</div>
+            </div>
+        </div>
+
+        <div class="endpoint">
+            <span class="method delete">DELETE</span>
+            <span class="path">/api/v1/auth/logout</span>
+            <div class="description">Logout user and invalidate tokens</div>
+
+            <div class="params">
+                <strong>Headers:</strong>
+                <div class="param">
+                    <div class="param-name">Authorization</div>
+                    <div class="param-type">string - Bearer token</div>
+                </div>
+            </div>
+
+            <div class="response">
+                <strong>Success Response (200):</strong>
+                <div class="code">{
+  "success": true,
+  "message": "Logged out successfully"
+}</div>
+            </div>
+        </div>
+
+        <div class="endpoint">
+            <span class="method get">GET</span>
+            <span class="path">/api/v1/auth/me</span>
+            <div class="description">Get current user information</div>
+
+            <div class="params">
+                <strong>Headers:</strong>
+                <div class="param">
+                    <div class="param-name">Authorization</div>
+                    <div class="param-type">string - Bearer token</div>
+                </div>
+            </div>
+
+            <div class="response">
+                <strong>Success Response (200):</strong>
+                <div class="code">{
+  "success": true,
+  "message": "User information retrieved",
+  "data": {
+    "id": 1,
+    "name": "John Doe",
+    "email": "john@example.com",
+    "role": "user",
+    "verified": true,
+    "created_at": "2025-09-27T10:00:00Z",
+    "updated_at": "2025-09-27T10:00:00Z"
+  }
+}</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>👥 User Management</h2>
+
+        <div class="endpoint">
+            <span class="method get">GET</span>
+            <span class="path">/api/v1/users</span>
+            <div class="description">Get list of all users (admin only)</div>
+
+            <div class="params">
+                <strong>Headers:</strong>
+                <div class="param">
+                    <div class="param-name">Authorization</div>
+                    <div class="param-type">string - Bearer token (admin required)</div>
+                </div>
+                <strong>Query Parameters:</strong>
+                <div class="param">
+                    <div class="param-name">page</div>
+                    <div class="param-type">integer (optional) - Page number for pagination</div>
+                </div>
+                <div class="param">
+                    <div class="param-name">per_page</div>
+                    <div class="param-type">integer (optional) - Items per page (default: 10)</div>
+                </div>
+            </div>
+
+            <div class="response">
+                <strong>Success Response (200):</strong>
+                <div class="code">{
+  "success": true,
+  "message": "Users retrieved successfully",
+  "data": [
+    {
+      "id": 1,
+      "name": "John Doe",
+      "email": "john@example.com",
+      "role": "user",
+      "verified": true,
+      "created_at": "2025-09-27T10:00:00Z"
+    }
+  ],
+  "pagination": {
+    "current_page": 1,
+    "total_pages": 1,
+    "total_count": 1,
+    "per_page": 10
+  }
+}</div>
+            </div>
+        </div>
+
+        <div class="endpoint">
+            <span class="method get">GET</span>
+            <span class="path">/api/v1/users/:id</span>
+            <div class="description">Get specific user information (admin only)</div>
+
+            <div class="params">
+                <strong>Headers:</strong>
+                <div class="param">
+                    <div class="param-name">Authorization</div>
+                    <div class="param-type">string - Bearer token (admin required)</div>
+                </div>
+                <strong>Path Parameters:</strong>
+                <div class="param">
+                    <div class="param-name">id</div>
+                    <div class="param-type">integer - User ID</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="endpoint">
+            <span class="method put">PUT</span>
+            <span class="path">/api/v1/users/:id</span>
+            <div class="description">Update user information (admin only)</div>
+        </div>
+
+        <div class="endpoint">
+            <span class="method delete">DELETE</span>
+            <span class="path">/api/v1/users/:id</span>
+            <div class="description">Delete user (admin only)</div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>🎭 Role Management</h2>
+
+        <div class="endpoint">
+            <span class="method get">GET</span>
+            <span class="path">/api/v1/roles</span>
+            <div class="description">Get list of all roles (admin only)</div>
+        </div>
+
+        <div class="endpoint">
+            <span class="method get">GET</span>
+            <span class="path">/api/v1/roles/:id</span>
+            <div class="description">Get specific role information (admin only)</div>
+        </div>
+
+        <div class="endpoint">
+            <span class="method post">POST</span>
+            <span class="path">/api/v1/roles</span>
+            <div class="description">Create new role (admin only)</div>
+        </div>
+
+        <div class="endpoint">
+            <span class="method put">PUT</span>
+            <span class="path">/api/v1/roles/:id</span>
+            <div class="description">Update role information (admin only)</div>
+        </div>
+
+        <div class="endpoint">
+            <span class="method delete">DELETE</span>
+            <span class="path">/api/v1/roles/:id</span>
+            <div class="description">Delete role (admin only)</div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>🔧 Error Responses</h2>
+
+        <div class="endpoint">
+            <div class="description">All endpoints may return the following error responses:</div>
+
+            <div class="response">
+                <strong>400 Bad Request:</strong>
+                <div class="code">{
+  "success": false,
+  "message": "Validation failed",
+  "errors": {
+    "email": ["can't be blank"],
+    "password": ["is too short (minimum is 6 characters)"]
+  }
+}</div>
+            </div>
+
+            <div class="response">
+                <strong>401 Unauthorized:</strong>
+                <div class="code">{
+  "success": false,
+  "message": "Invalid credentials"
+}</div>
+            </div>
+
+            <div class="response">
+                <strong>403 Forbidden:</strong>
+                <div class="code">{
+  "success": false,
+  "message": "Access denied. Admin privileges required."
+}</div>
+            </div>
+
+            <div class="response">
+                <strong>404 Not Found:</strong>
+                <div class="code">{
+  "success": false,
+  "message": "Resource not found"
+}</div>
+            </div>
+
+            <div class="response">
+                <strong>429 Too Many Requests:</strong>
+                <div class="code">{
+  "success": false,
+  "message": "Rate limit exceeded. Please try again later."
+}</div>
+            </div>
+
+            <div class="response">
+                <strong>500 Internal Server Error:</strong>
+                <div class="code">{
+  "success": false,
+  "message": "Internal server error"
+}</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>📊 Rate Limiting</h2>
+        <div class="auth-note">
+            <strong>Rate Limits:</strong>
+            <ul>
+                <li><strong>General API:</strong> 100 requests per minute per IP</li>
+                <li><strong>Auth endpoints:</strong> 10 requests per minute per IP</li>
+                <li><strong>Authenticated users:</strong> 1000 requests per hour per user</li>
+            </ul>
+            <p>Rate limit headers are included in responses: <code>X-RateLimit-Limit</code>, <code>X-RateLimit-Remaining</code>, <code>X-RateLimit-Reset</code></p>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>🔒 Security Features</h2>
+        <ul>
+            <li><strong>JWT Authentication:</strong> Secure token-based authentication</li>
+            <li><strong>Password Hashing:</strong> bcrypt encryption for passwords</li>
+            <li><strong>Rate Limiting:</strong> Protection against abuse</li>
+            <li><strong>CORS Support:</strong> Configurable cross-origin requests</li>
+            <li><strong>Role-Based Access:</strong> Granular permission system</li>
+            <li><strong>Session Management:</strong> Track user sessions and devices</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h2>🚀 Getting Started</h2>
+        <ol>
+            <li><strong>Register:</strong> Create a new account using <code>POST /api/v1/auth/register</code></li>
+            <li><strong>Login:</strong> Authenticate using <code>POST /api/v1/auth/login</code></li>
+            <li><strong>Use Token:</strong> Include the access token in the Authorization header for protected endpoints</li>
+            <li><strong>Refresh Token:</strong> Use the refresh token to get a new access token when needed</li>
+        </ol>
+    </div>
+
+    <div style="text-align: center; margin-top: 3rem; padding: 2rem; background: #f8f9fa; border-radius: 8px;">
+        <p><strong>React Starter Kit API v1.0</strong></p>
+        <p>Built with ❤️ using Rails 8.0.2 + React + TypeScript</p>
+        <p>Last updated: September 27, 2025</p>
+    </div>
+</body>
+</html>

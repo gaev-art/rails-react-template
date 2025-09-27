@@ -19,6 +19,17 @@ gem "bcrypt", "~> 3.1.7"
 # JWT for authentication
 gem "jwt"
 
+# API Documentation
+gem "rswag"
+gem "rswag-api"
+gem "rswag-ui"
+
+# Rate Limiting
+gem "rack-attack"
+
+# CORS
+gem "rack-cors"
+
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data", platforms: %i[ windows jruby ]
 
