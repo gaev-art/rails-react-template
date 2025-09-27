@@ -12,6 +12,9 @@ import { Checkbox } from '@/components/ui/checkbox'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { useTheme } from '@/hooks/useTheme'
+import { AuthModal } from '../components/auth/AuthModal'
+import { UserProfile } from '../components/auth/UserProfile'
+import { useAuth } from '../contexts/AuthContext'
 
 // Color palette data for showcase
 const colorPalette = [
@@ -55,9 +58,11 @@ const colorPalette = [
 
 export default function MainPage() {
   const { theme, toggleTheme, isInitialized } = useTheme()
+  const { isAuthenticated, user } = useAuth()
   const [inputValue, setInputValue] = useState('')
   const [textareaValue, setTextareaValue] = useState('')
   const [isChecked, setIsChecked] = useState(false)
+  const [showAuthModal, setShowAuthModal] = useState(false)
   const checkboxId = useId()
 
   if (!isInitialized) {
@@ -91,6 +96,19 @@ export default function MainPage() {
             >
               Switch to {theme === 'light' ? 'dark' : 'light'} theme
             </Button>
+            {!isAuthenticated ? (
+              <Button
+                onClick={() => setShowAuthModal(true)}
+                variant='default'
+                size='sm'
+              >
+                Войти в систему
+              </Button>
+            ) : (
+              <Badge variant='default' className='text-base'>
+                Привет, {user?.name}!
+              </Badge>
+            )}
           </div>
         </header>
 
@@ -111,8 +129,12 @@ export default function MainPage() {
               {colorPalette.map((color) => (
                 <Card
                   key={color.name}
-                  className={`${color.className} transition-all duration-300 hover:scale-105 hover:shadow-lg`}
+                  className='transition-all duration-300 hover:scale-105 hover:shadow-lg'
                   data-testid={`color-card-${color.name.toLowerCase()}`}
+                  style={{
+                    backgroundColor: `hsl(var(--${color.name.toLowerCase()}))`,
+                    color: `hsl(var(--${color.name.toLowerCase()}-foreground))`,
+                  }}
                 >
                   <CardContent className='p-4'>
                     <h3 className='font-semibold text-lg'>{color.name}</h3>
@@ -278,7 +300,31 @@ export default function MainPage() {
             </div>
           </CardContent>
         </Card>
+
+        {/* User Profile Section */}
+        {isAuthenticated && (
+          <Card>
+            <CardHeader>
+              <CardTitle className='flex items-center gap-2'>
+                👤 User Profile
+                <Badge variant='outline'>Authenticated</Badge>
+              </CardTitle>
+              <CardDescription>
+                Your account information and authentication status
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <UserProfile />
+            </CardContent>
+          </Card>
+        )}
       </div>
+
+      {/* Auth Modal */}
+      <AuthModal
+        isOpen={showAuthModal}
+        onClose={() => setShowAuthModal(false)}
+      />
     </div>
   )
 }

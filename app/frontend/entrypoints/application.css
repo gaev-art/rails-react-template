@@ -1,6 +1,5 @@
 @import "tailwindcss";
 
-/* Автоматическое определение темной темы через media query */
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0f172a;
@@ -161,7 +160,6 @@
   --shadow-2xl: 0px 4px 8px -1px hsl(0 0% 0% / 25%);
 }
 
-/* Theme variables */
 :root {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
