@@ -71,7 +71,7 @@ RSpec.configure do |config|
               id: {type: :integer, example: 1},
               name: {type: :string, example: "John Doe"},
               email: {type: :string, format: :email, example: "user@example.com"},
-              role: {type: :string, example: "user"},
+              role: {type: [:string, :null], example: "user"},
               verified: {type: :boolean, example: true},
               created_at: {type: :string, format: :date_time},
               updated_at: {type: :string, format: :date_time}

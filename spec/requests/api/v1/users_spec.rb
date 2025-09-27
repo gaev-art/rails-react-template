@@ -19,17 +19,22 @@ RSpec.describe "Api::V1::Users", type: :request do
             success: {type: :boolean, example: true},
             message: {type: :string, example: "Users retrieved successfully"},
             data: {
-              type: :array,
-              items: {
-                type: :object,
-                properties: {
-                  id: {type: :integer, example: 1},
-                  name: {type: :string, example: "John Doe"},
-                  email: {type: :string, example: "user@example.com"},
-                  role: {type: :string, example: "user"},
-                  verified: {type: :boolean, example: true},
-                  created_at: {type: :string, format: :date_time},
-                  updated_at: {type: :string, format: :date_time}
+              type: :object,
+              properties: {
+                users: {
+                  type: :array,
+                  items: {
+                    type: :object,
+                    properties: {
+                      id: {type: :integer, example: 1},
+                      name: {type: :string, example: "John Doe"},
+                      email: {type: :string, example: "user@example.com"},
+                      role: {type: [:string, :null], example: "user"},
+                      verified: {type: :boolean, example: true},
+                      created_at: {type: :string, format: :date_time},
+                      updated_at: {type: :string, format: :date_time}
+                    }
+                  }
                 }
               }
             },
@@ -55,7 +60,7 @@ RSpec.describe "Api::V1::Users", type: :request do
         run_test! do |response|
           data = JSON.parse(response.body)
           expect(data["success"]).to be true
-          expect(data["data"]).to be_an(Array)
+          expect(data["data"]["users"]).to be_an(Array)
         end
       end
 
@@ -107,7 +112,7 @@ RSpec.describe "Api::V1::Users", type: :request do
                 id: {type: :integer, example: 1},
                 name: {type: :string, example: "John Doe"},
                 email: {type: :string, example: "user@example.com"},
-                role: {type: :string, example: "user"},
+                role: {type: [:string, :null], example: "user"},
                 verified: {type: :boolean, example: true},
                 created_at: {type: :string, format: :date_time},
                 updated_at: {type: :string, format: :date_time}
@@ -123,7 +128,7 @@ RSpec.describe "Api::V1::Users", type: :request do
         run_test! do |response|
           data = JSON.parse(response.body)
           expect(data["success"]).to be true
-          expect(data["data"]["id"]).to eq(user.id)
+          expect(data["data"]["user"]["id"]).to eq(user.id)
         end
       end
 
@@ -170,7 +175,7 @@ RSpec.describe "Api::V1::Users", type: :request do
                 id: {type: :integer, example: 1},
                 name: {type: :string, example: "Updated Name"},
                 email: {type: :string, example: "updated@example.com"},
-                role: {type: :string, example: "user"},
+                role: {type: [:string, :null], example: "user"},
                 verified: {type: :boolean, example: true},
                 created_at: {type: :string, format: :date_time},
                 updated_at: {type: :string, format: :date_time}
@@ -187,7 +192,7 @@ RSpec.describe "Api::V1::Users", type: :request do
         run_test! do |response|
           data = JSON.parse(response.body)
           expect(data["success"]).to be true
-          expect(data["data"]["name"]).to eq("Updated Name")
+          expect(data["data"]["user"]["name"]).to eq("Updated Name")
         end
       end
 

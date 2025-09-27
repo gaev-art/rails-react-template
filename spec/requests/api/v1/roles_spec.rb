@@ -16,15 +16,20 @@ RSpec.describe "Api::V1::Roles", type: :request do
             success: {type: :boolean, example: true},
             message: {type: :string, example: "Roles retrieved successfully"},
             data: {
-              type: :array,
-              items: {
-                type: :object,
-                properties: {
-                  id: {type: :integer, example: 1},
-                  name: {type: :string, example: "admin"},
-                  description: {type: :string, example: "Administrator role"},
-                  created_at: {type: :string, format: :date_time},
-                  updated_at: {type: :string, format: :date_time}
+              type: :object,
+              properties: {
+                roles: {
+                  type: :array,
+                  items: {
+                    type: :object,
+                    properties: {
+                      id: {type: :integer, example: 1},
+                      name: {type: :string, example: "admin"},
+                      description: {type: :string, example: "Administrator role"},
+                      created_at: {type: :string, format: :date_time},
+                      updated_at: {type: :string, format: :date_time}
+                    }
+                  }
                 }
               }
             }
@@ -41,7 +46,7 @@ RSpec.describe "Api::V1::Roles", type: :request do
         run_test! do |response|
           data = JSON.parse(response.body)
           expect(data["success"]).to be true
-          expect(data["data"]).to be_an(Array)
+          expect(data["data"]["roles"]).to be_an(Array)
         end
       end
 
@@ -113,7 +118,7 @@ RSpec.describe "Api::V1::Roles", type: :request do
         run_test! do |response|
           data = JSON.parse(response.body)
           expect(data["success"]).to be true
-          expect(data["data"]["name"]).to eq("moderator")
+          expect(data["data"]["role"]["name"]).to eq("moderator")
         end
       end
 
@@ -176,7 +181,7 @@ RSpec.describe "Api::V1::Roles", type: :request do
         run_test! do |response|
           data = JSON.parse(response.body)
           expect(data["success"]).to be true
-          expect(data["data"]["id"]).to eq(role.id)
+          expect(data["data"]["role"]["id"]).to eq(role.id)
         end
       end
 
@@ -239,7 +244,7 @@ RSpec.describe "Api::V1::Roles", type: :request do
         run_test! do |response|
           data = JSON.parse(response.body)
           expect(data["success"]).to be true
-          expect(data["data"]["name"]).to eq("updated-role")
+          expect(data["data"]["role"]["name"]).to eq("updated-role")
         end
       end
     end

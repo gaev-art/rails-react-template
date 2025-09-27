@@ -25,6 +25,8 @@ RSpec.describe "Api::V1::Auth", type: :request do
         required: %w[auth]
       }
 
+      parameter name: "User-Agent", in: :header, type: :string, required: false, description: "User agent string"
+
       response "200", "Login successful" do
         schema type: :object,
           properties: {
@@ -60,6 +62,7 @@ RSpec.describe "Api::V1::Auth", type: :request do
 
         let(:user) { create(:user, email: "user@example.com", password: "password123") }
         let(:auth) { {auth: {email: user.email, password: "password123"}} }
+        let(:"User-Agent") { "Test Agent" }
 
         run_test! do |response|
           data = JSON.parse(response.body)
@@ -114,6 +117,8 @@ RSpec.describe "Api::V1::Auth", type: :request do
         required: %w[name email password password_confirmation]
       }
 
+      parameter name: "User-Agent", in: :header, type: :string, required: false, description: "User agent string"
+
       response "201", "Registration successful" do
         schema type: :object,
           properties: {
@@ -154,6 +159,12 @@ RSpec.describe "Api::V1::Auth", type: :request do
             password: "password123",
             password_confirmation: "password123"
           }
+        end
+
+        let(:"User-Agent") { "Test Agent" }
+
+        before do
+          Role.create!(name: "user", description: "Regular user role")
         end
 
         run_test! do |response|

@@ -2,7 +2,7 @@
 
 FactoryBot.define do
   factory :role do
-    name { Faker::Internet.unique.username }
+    sequence(:name) { |n| "role_#{n}_#{Faker::Internet.unique.username}" }
     description { Faker::Lorem.sentence }
 
     trait :admin do

@@ -46,7 +46,7 @@ module Api
       end
 
       def user_params
-        params.require(:user).permit(:name, :email, :verified, :role_id)
+        params.permit(:name, :email, :verified, :role_id)
       end
 
       def check_admin_permission

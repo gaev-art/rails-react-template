@@ -58,7 +58,7 @@ module Api
       end
 
       def role_params
-        params.require(:role).permit(:name, :description)
+        params.permit(:name, :description)
       end
 
       def check_admin_permission

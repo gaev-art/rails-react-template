@@ -7,7 +7,7 @@ FactoryBot.define do
     password { "password123" }
     password_confirmation { "password123" }
     verified { true }
-    role { association(:role, :user) }
+    role { association(:role) }
 
     trait :admin do
       role { association(:role, :admin) }
